@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="toolbar">
+    <ion-buttons *ngIf="usuarioId" slot="start">
+      <ion-button color="medium" (click)="calificar()">{{ texto.calificar }}</ion-button>
+    </ion-buttons>
+
+    <ion-title>{{ texto.calificaciones }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="medium" (click)="cerrar()">{{ texto.cerrar }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>{{ texto.calificacionesRecientes }}</ion-list-header>
+
+    <ion-item *ngFor="let calificacion of calificaciones;" (click)="descripcionCalificacion(calificacion)">
+      <ion-label>
+        <p>{{ calificacion.comentario }}</p>
+      </ion-label>
+
+      <ion-chip slot="end" color="warning">
+        <ion-icon name="star" [color]="calificacion.evaluacion > 0? 'warning': 'dark'"></ion-icon>
+        <ion-icon name="star" [color]="calificacion.evaluacion > 1? 'warning': 'dark'"></ion-icon>
+        <ion-icon name="star" [color]="calificacion.evaluacion > 2? 'warning': 'dark'"></ion-icon>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+</ion-content>

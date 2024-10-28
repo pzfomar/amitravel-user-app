@@ -1,0 +1,162 @@
+<ion-content *ngIf="dato" [ngSwitch]="tab" style="--background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{dato.imagen}}) no-repeat center center / cover;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="para-mi" text={{texto.regresar}} icon="chevron-back"></ion-back-button>
+      </ion-buttons>
+
+      <ion-title color="light">{{tab.toUpperCase()}}</ion-title>
+    </ion-toolbar>
+
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button class="segment-button" value="ubicacion">
+        <ion-icon name="map"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button class="segment-button" value="negocio">
+        <ion-icon name="storefront"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button class="segment-button" value="anuncios">
+        <ion-icon name="notifications"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button class="segment-button" value="promociones">
+        <ion-icon name="cash"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button class="segment-button" value="productos">
+        <ion-icon name="fast-food"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-header>
+
+  <ion-list no-lines *ngSwitchCase="'ubicacion'">
+    <div class="list_header">
+      <h2>{{texto.ubicacion}}</h2>
+    </div>
+    
+    <div class="scroll">
+      <ion-item *ngIf="dato.mapa">
+        <iframe [src]="transform(dato.mapa)" style="border:0;width:100%;height:400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <ion-list no-lines *ngSwitchCase="'negocio'">
+    <div class="list_header">
+      <h2>{{texto.negocio}}</h2>
+    </div>
+    <div class="scroll">
+      <div *ngIf="negocio">
+        <div class="textAlignCenter">
+          <img alt="" src={{negocio.imagen}} />
+        </div>
+        
+        <ion-item *ngIf="negocio.tipo">
+          <ion-card-subtitle>{{negocio.tipo}}</ion-card-subtitle>
+        </ion-item>
+
+        <ion-item class="textAlignCenter">
+          <ion-card-title>{{negocio.nombre}}</ion-card-title>
+        </ion-item>
+
+        <ion-item>
+          <p>{{negocio.descripcion}}</p>
+        </ion-item>
+
+        <ion-item>
+          <p class="fontWeightBold">{{negocio.lugar}}</p>
+        </ion-item>
+
+        <ion-item *ngIf="negocio.mapa">
+          <iframe [src]="transform(negocio.mapa)" style="border:0;width:100%;height:200px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </ion-item>
+      </div>
+    </div>
+  </ion-list>
+
+  <ion-list no-lines *ngSwitchCase="'anuncios'">
+    <div class="list_header">
+      <h2>{{texto.anuncios}}</h2>
+    </div>
+
+    <div class="scroll">
+      <div *ngIf="anuncios">
+        <ion-item color="dark" style="margin-top: 5px;" *ngFor="let anuncio of anuncios;">
+          <ion-router-link href={{anuncio.url}} style="width: 200px;text-align: center;">
+            <div>
+              <ion-avatar slot="start" style="margin: auto;">
+                <img alt="" src={{anuncio.imagen}} />
+              </ion-avatar>
+
+              <ion-label>
+                <h3>{{anuncio.nombre}}</h3>
+              </ion-label>
+            </div>
+          </ion-router-link>
+
+          <div [routerLink]="['/anuncio', anuncio.id]">
+            <ion-label class="ion-text-wrap">{{anuncio.descripcion}}</ion-label>
+          </div>
+        </ion-item>
+      </div>
+    </div>
+  </ion-list>
+
+  <ion-list no-lines *ngSwitchCase="'promociones'">
+    <div class="list_header">
+      <h2>{{texto.promociones}}</h2>
+    </div>
+
+    <div class="scroll">
+      <div *ngIf="promociones">
+        <ion-item color="dark" style="margin-top: 5px;" *ngFor="let promocion of promociones;">
+          <ion-router-link href={{promocion.url}} style="width: 200px;text-align: center;">
+            <div>
+              <ion-avatar slot="start" style="margin: auto;">
+                <img alt="" src={{promocion.imagen}} />
+              </ion-avatar>
+
+              <ion-label>
+                <h3>{{promocion.nombre}}</h3>
+              </ion-label>
+            </div>
+          </ion-router-link>
+
+          <div [routerLink]="['/promocion', promocion.id]">
+            <ion-label class="ion-text-wrap">{{promocion.descripcion}}</ion-label>
+          </div>
+        </ion-item>
+      </div>
+    </div>
+  </ion-list>
+
+  <ion-list no-lines *ngSwitchCase="'productos'">
+    <div class="list_header">
+      <h2>{{texto.productos}}</h2>
+    </div>
+
+    <div class="scroll">
+      <ion-grid>
+        <ion-row *ngIf="productos">
+          <ion-col size="6" *ngFor="let producto of productos;">
+            <ion-card>
+              <ion-slides pager="true">
+                <ion-slide>
+                  <img alt="" src={{producto.imagen}} />
+                </ion-slide>
+              </ion-slides>
+  
+              <ion-card-header>
+                <ion-card-subtitle style="font-size: 10px;">{{producto.tipo}}</ion-card-subtitle>
+
+                <ion-card-title style="font-size: 15px;">{{producto.nombre}}</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>  
+  </ion-list>  
+</ion-content>
