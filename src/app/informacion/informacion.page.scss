@@ -1,0 +1,276 @@
+ion-content {
+    --ion-color-base: black !important;
+    ion-header {
+        --background: transparent;
+        --ion-color-base: transparent !important;
+        ion-toolbar {
+            --background: transparent;
+            --ion-color-base: transparent !important;
+        }
+        ion-back-button {
+            color: white;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: white;
+            opacity: .1;
+            display: block !important;
+        }
+        ion-segment {
+            border: none;
+            background: none;
+            width: 100%;
+            height: 50px;
+            overflow-x: scroll;
+            ion-segment-button{
+                --background-checked: transparent !important;
+                --indicator-color : transparent !important;
+                padding: 0;
+                opacity: 1;
+                border: none;
+                position: relative;
+                color: white;
+                height: auto;
+                min-height: unset;
+                ion-icon {
+                    font-size: 2rem;
+                }
+                &.segment-button-checked {
+                    color: #01b4b1;
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        width: 40px;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        height: 4px;
+                        background: #01b4b1;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+    ion-list {
+        background: #fff;
+        width: calc(100% - 16px);
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-top: 20px;
+        height: 540px !important;
+        h2 {
+            margin: 0;
+            font-size: 1.7rem;
+            color: #000;
+            font-weight: 500;
+        }
+        .list_header {
+            background: #f3f3f3;
+            padding: 14px 21px 14px 21px;
+        }
+        .item {
+            padding: 10px 24px 10px 24px;
+            background: #fff;
+            .item-inner {
+                padding: 0;
+                .label {
+                    margin: 0;
+                    white-space: normal;
+                    p {
+                        padding-top: 10px;
+                        color: #373737;
+                        font-weight: 400;
+                        font-size: 1.5rem;
+                        line-height: 19px;
+                    }
+                    h2 {
+                        font-weight: 500;
+                        ion-icon {
+                            text-align: center;
+                            font-size: 2rem;
+                            margin-right: 16px;
+                            background: #f3f3f3;
+                            border-radius: 50%;
+                            width: 40px;
+                            height: 40px;
+                            line-height: 40px;
+                            color: #01b4b1;
+                        }
+                    }
+                    .row {
+                        padding-bottom: 12px;
+                        padding-top: 10px;
+                        .col {
+                            ion-icon {
+                                color: #01b4b1;
+                                font-size: 3rem;
+                                margin-bottom: 15px;
+                            }
+                            p {
+                                font-size: 1.2rem;
+                                color: #8f8f8f;
+                                padding-top: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .scroll {
+            height: 465px;
+            overflow-y: scroll;
+            //white-space: nowrap;
+            .textAlignCenter {
+                text-align: center;
+            }
+            .fontWeightBold {
+                font-weight: bold;
+            }
+            .scrollX {
+                overflow-x: scroll;
+            }
+            .img_box {
+                display: inline-block;
+                display: inline-block;
+                width: 123px;
+                height: 85px;
+                position: relative;
+                overflow: hidden;
+                margin: 0 2px;
+                border-radius: 4px;
+                img {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: -50% !important;
+                    right: -50% !important;
+                    margin: auto;
+                    width: 100%;
+                    height: 100%;
+                }
+                &:first-child {
+                    margin-left: 25px;
+                }
+                &:last-child {
+                    margin-right: 25px;
+                }
+            }
+        }
+        &.ourteam {
+            .item {
+                padding: 17px 24px 17px 24px;
+                align-items: flex-start;
+                &:first-child {
+                    padding-top: 30px;
+                }
+                .img_box {
+                    margin: 0 !important;
+                    width: 95px;
+                    height: 95px;
+                    position: relative;
+                    overflow: hidden;
+                    margin-right: 20px !important;
+                    img {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: -50% !important;
+                        bottom: 0;
+                        right: -50% !important;
+                        margin: auto;
+                    }
+                }
+                .item-inner {
+                    padding: 0;
+                    ion-icon {
+                        margin: 0 !important;
+                        color: #01b4b1;
+                        min-height: unset;
+                        min-width: unset;
+                        font-size: 2.5rem;
+                        width: 18px;
+                    }
+                    .label {
+                        p {
+                            padding-top: 0;
+                            color: #a7a7a7;
+                            font-weight: 400;
+                            font-size: 1.16rem;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                        }
+                        .icon_box {
+                            padding-top: 30px;
+                            width: 100%;
+                            left: 0;
+                            bottom: 0;
+                            margin: 0 -4px;
+                            img {
+                                width: 18px;
+                                margin: 0 4px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.testimonials {
+            background: none;
+    
+            .item {
+                padding: 23px 24px 23px 24px;
+                margin-bottom: 5px;
+                border-radius: 8px;
+                background: #fff;
+                &:first-of-type {
+                    border-radius: 0 0 8px 8px !important;
+                }
+                .client_details {
+                    .client_img {
+                        position: relative;
+                        overflow: hidden;
+                        min-width: 35px;
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 50%;
+                        margin-right: 13px;
+                        img {
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: -50% !important;
+                            right: -50% !important;
+                            margin: auto;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .client_post {
+                        width: 100%;
+                        h2 {
+                            font-weight: 500;
+                            font-size: 1.3rem;
+                        }
+                        h3 {
+                            font-size: 1.2rem;
+                            color: #a7a7a7;
+                            span {
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

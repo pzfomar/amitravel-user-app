@@ -1,0 +1,111 @@
+<ion-content *ngIf="dato" style="--background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{dato.imagen}}) no-repeat center center / cover;">
+  <div>
+    <ion-header style="height: 45px;">
+      <ion-toolbar>
+        <img slot="start" src={{dato.logo}}>
+
+        <!--<ion-icon name="create" color="light" slot="end" (click)="reservar()"></ion-icon>-->
+        <ion-chip slot="end" color="warning" (click)="verCalificacion()">
+          <ion-icon name="star" [color]="evaluacion > 0? 'warning': 'dark'"></ion-icon>
+          <ion-icon name="star" [color]="evaluacion > 1? 'warning': 'dark'"></ion-icon>
+          <ion-icon name="star" [color]="evaluacion > 2? 'warning': 'dark'"></ion-icon>
+        </ion-chip>
+      </ion-toolbar>
+    </ion-header>
+
+    <div class="banner">
+      <ion-slides pager="true">
+        <ion-slide>
+          <div class="item_box">
+            <div class="item_img"></div>
+
+            <div class="text_box">
+              <h2>{{dato.nombre}}</h2>
+              <p>{{dato.descripcion}}</p>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="item_box">
+            <div class="item_img">
+              <img src={{dato.imagen}} [routerLink]="['/imagen', dato.imagen]">
+            </div>
+
+            <div class="text_box"></div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <div class="scroll_box">
+      <div class="scroll">
+        <div class="scroll_item" [routerLink]="['/informacion', dato.tipo, 'ubicacion', dato.id]" menuToggle>
+          <ion-icon name="map"></ion-icon>
+          <h2>{{texto.ubicacion}}</h2>
+        </div>
+
+        <div class="scroll_item" [routerLink]="['/informacion', dato.tipo, 'negocio', dato.id]">
+          <ion-icon name="storefront"></ion-icon>
+          <h2>{{texto.negocio}}</h2>
+        </div>
+
+        <div class="scroll_item" [routerLink]="['/informacion', dato.tipo, 'anuncios', dato.id]">
+          <ion-icon name="notifications"></ion-icon>
+          <h2>{{texto.anuncios}}</h2>
+        </div>
+
+        <div class="scroll_item" [routerLink]="['/informacion', dato.tipo, 'promociones', dato.id]">
+          <ion-icon name="cash"></ion-icon>
+          <h2>{{texto.promociones}}</h2>
+        </div>
+
+        <div class="scroll_item" [routerLink]="['/informacion', dato.tipo, 'productos', dato.id]">
+          <ion-icon name="fast-food"></ion-icon>
+          <h2>{{texto.productos}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-refresher *ngIf="pagina < 1" slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab *ngIf="pagina > 0" vertical="top" horizontal="center" slot="fixed">
+    <ion-fab-button color="light" (click)="continuar(-1)">
+      <ion-icon color="light" name="chevron-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon color="light" name="apps"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="start">
+      <ion-fab-button *ngIf="usuarioId" color="light" [routerLink]="['/agenda']">
+        <ion-icon color="light" name="calendar"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="light" [routerLink]="['/usuario']">
+        <ion-icon color="light" name="person"></ion-icon>
+      </ion-fab-button>
+      <!--
+      <ion-fab-button color="light" [routerLink]="['/buscar']">
+        <ion-icon color="light" name="search"></ion-icon>
+      </ion-fab-button>
+      -->
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="light" (click)="continuar(+1)">
+      <ion-icon color="light" name="chevron-down"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab *ngIf="usuarioId" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" (click)="agendar()">
+      <ion-icon color="light" name="today"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,222 @@
+<ion-header>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/para-mi']">
+        <ion-icon name="chevron-back"></ion-icon>
+        {{texto.regresar}}
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>{{texto.usuario}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="sesionIniciada; then usuarioBlock else iniciarSesionBlock"></div>
+  <ng-template #usuarioBlock>
+    <div *ngIf="persona">
+      <div class="imgcontainer">
+        <img src="https://bornehusetcolumbus.dk/wp-content/uploads/2018/08/avatar_sort-768x768.png" alt="logo_travel" class="avatar">
+      </div>
+  
+      <h1 class="textAlignCenter">{{texto.bienvenido + ' ' + persona.nombre}}</h1>
+      <!--<h6 *ngIf="personaUbicacion" class="textAlignCenter">{{texto.miUbicacion + ': ' + personaUbicacion}}</h6>-->
+  
+      <ion-row>
+        <ion-col size="12" class="textAlignCenter">
+          <ion-chip outline color="primary" (click)="aficionDiaria()">
+            <ion-icon name="book"></ion-icon>
+            <ion-label>{{texto.aficionDiaria}}</ion-label>
+            <ion-icon name="book"></ion-icon>
+          </ion-chip>
+        </ion-col>
+  
+        <!--
+        <ion-col size="6" class="textAlignCenter">
+          <ion-chip outline color="secondary" (click)="ubicacion()">
+            <ion-icon name="location"></ion-icon>
+            <ion-label>{{texto.ubicacion}}</ion-label>
+            <ion-icon name="location"></ion-icon>
+          </ion-chip>
+        </ion-col>
+        -->
+  
+        <ion-col size="12" class="textAlignCenter">
+          <ion-chip outline color="danger" (click)="cerrarSesion()">
+            <ion-icon name="close-circle"></ion-icon>
+            <ion-label>{{texto.cerrarSesion}}</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+  
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>{{texto.informacionUsuario}}</ion-label>
+          </ion-item>
+  
+          <div class="ion-padding" slot="content">
+            <ion-item>
+              <ion-label position="floating">{{texto.apodo}}</ion-label>
+              <ion-input value={{usuario.apodo}} type="text" [disabled]="true"></ion-input>
+            </ion-item>
+          </div>
+        </ion-accordion>
+  
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>{{texto.informacionPerfil}}</ion-label>
+          </ion-item>
+  
+          <div class="ion-padding" slot="content">
+            <ion-item>
+              <ion-label position="floating">{{texto.correo}}</ion-label>
+              <ion-input value={{persona.correo}} type="email" [disabled]="true"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label position="floating">{{texto.nombre}}</ion-label>
+              <ion-input value={{persona.nombre}} type="text" [disabled]="true"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label position="floating">{{texto.apellidoPaterno}}</ion-label>
+              <ion-input value={{persona.apellidoPaterno}} type="text" [disabled]="true"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label position="floating">{{texto.apellidoMaterno}}</ion-label>
+              <ion-input value={{persona.apellidoMaterno}} type="text" [disabled]="true"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label position="floating">{{texto.edad}}</ion-label>
+              <ion-input value={{persona.edad}} type="number" [disabled]="true"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label position="floating">{{texto.telefono}}</ion-label>
+              <ion-input value={{persona.telefono}} type="text" [disabled]="true"></ion-input>
+            </ion-item>
+          </div>
+        </ion-accordion>
+  
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>{{texto.informacionAficionDiaria}}</ion-label>
+          </ion-item>
+  
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item  *ngFor="let aficion of aficiones;">
+                <ion-label>{{texto.creacionAficionDiaria + ': ' + formatoFecha(aficion.creacion)}}</ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+  </ng-template>
+  <ng-template #iniciarSesionBlock>
+    <div class="imgcontainer">
+      <img src="/assets/logo_travel.png" alt="logo_travel" class="avatar">
+    </div>
+
+    <div *ngIf="activarRegistro; then registroBlock else sesionBlock"></div>
+
+    <ng-template #registroBlock>
+      <form [formGroup]="registrarseForm" (ngSubmit)="registrarse()" novalidate>
+        <ion-item>
+          <ion-label position="floating">{{texto.apodo}}</ion-label>
+          <ion-input formControlName="apodo" type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.contrasenia}}</ion-label>
+          <ion-input formControlName="contrasenia" type="password"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.confirmarContrasenia}}</ion-label>
+          <ion-input formControlName="confirmarContrasenia" type="password"></ion-input>
+        </ion-item>
+    
+        <ion-chip *ngIf="this.registrarseForm.value.contrasenia != this.registrarseForm.value.confirmarContrasenia" color="danger">
+          <ion-label>{{texto.noCoincideContrasenia}}</ion-label>
+        </ion-chip>
+
+        <ion-item>
+          <ion-label position="floating">{{texto.correo}}</ion-label>
+          <ion-input formControlName="correo" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">{{texto.nombre}}</ion-label>
+          <ion-input formControlName="nombre" type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.apellidoPaterno}}</ion-label>
+          <ion-input formControlName="apellidoPaterno" type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.apellidoMaterno}}</ion-label>
+          <ion-input formControlName="apellidoMaterno" type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.edad}}</ion-label>
+          <ion-input formControlName="edad" type="number"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">{{texto.telefono}}</ion-label>
+          <ion-input formControlName="telefono" type="number"></ion-input>
+        </ion-item>
+    
+        <ion-row>
+          <ion-col size="6">
+            <ion-button type="submit" color="primary" expand="full" [disabled]="validarRegistro()">{{texto.registrarse}}</ion-button>
+          </ion-col>
+    
+          <ion-col size="6">
+            <ion-button color="danger" expand="full" (click)="limpiarRegistro()">{{texto.cancelar}}</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ng-template>
+    
+    <ng-template #sesionBlock>
+      <form [formGroup]="iniciarSesionForm" (ngSubmit)="iniciarSesion()" novalidate>
+        <ion-item>
+          <ion-label position="floating">{{texto.apodo}}</ion-label>
+          <ion-input formControlName="apodo" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">{{texto.contrasenia}}</ion-label>
+          <ion-input formControlName="contrasenia" type="password"></ion-input>
+        </ion-item>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-button type="submit" color="primary" expand="full" disabled={{!this.iniciarSesionForm.valid}}>{{texto.iniciarSesion}}</ion-button>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-button color="danger" expand="full" (click)="limpiarSesion()">{{texto.cancelar}}</ion-button>
+          </ion-col>
+
+          <ion-col size="12">
+            <ion-button color="secondary" expand="full" (click)="activarRegistro = true">{{texto.crearCuenta}}</ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button color="warning" expand="full" (click)="recuperarCuenta()">{{texto.recuperarCuenta}}</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ng-template>
+  </ng-template>
+</ion-content>

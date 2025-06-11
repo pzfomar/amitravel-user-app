@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="para-mi" text={{texto.regresar}} icon="chevron-back"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-datetime locale={{texto.locale}} presentation="date" #popoverDatetime ref="el => this.customDatetime = el" style="margin: auto;" (ionChange)="selectDate(popoverDatetime.value)"></ion-datetime>
+  <br>
+  <ion-row>
+    <ion-col size="1">
+    </ion-col>
+    <ion-col size="10" style="background-color: #162238;">
+      <ion-toolbar color="amiTravel1">
+        <ion-buttons *ngIf="usuarioId" slot="end">
+          <ion-button (click)="agendar()">
+            <ion-icon name="add" color="light"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title style="text-align: left;" color="light">{{texto.tareas}}<br>{{dateText}}</ion-title>
+      </ion-toolbar>
+      <ion-list style="background-color: white;height: 200px;overflow-y: scroll;">
+        <ion-item color="dark" style="margin-top: 5px;" *ngFor="let agenda of obtenerAgenda;"  (click)="editarAgenda(agenda)">
+          <ion-label>
+            <h3>{{agenda.nombre}}</h3>
+            <p>{{agenda.descripcion}}</p>
+          </ion-label>
+          <ion-label slot="end">
+            <ion-badge style="font-size: 9px;">{{agenda.hora}}</ion-badge>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col size="1">
+    </ion-col>
+  </ion-row>
+</ion-content>

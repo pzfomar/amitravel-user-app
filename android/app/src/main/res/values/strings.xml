@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AmiTravel-Usuario</string>
+    <string name="title_activity_main">AmiTravel-Usuario</string>
+    <string name="package_name">app.web.amitravel.usuario</string>
+    <string name="custom_url_scheme">app.web.amitravel.usuario</string>
+</resources>

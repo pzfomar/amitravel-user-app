@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-frontend
+  template:
+    metadata:
+      labels:
+        app: app-frontend
+    spec:
+      containers:
+        - name: app-frontend
+          image: gcr.io/clear-hulling-356517/frontend_app_amitravel_image:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 10m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-frontend
+spec:
+  selector:
+    app: app-frontend
+  #type: NodePort
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+#---
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#  name: app-frontend
+#spec:
+#  frontend:
+#    serviceName: app-frontend
+#    servicePort: 80
